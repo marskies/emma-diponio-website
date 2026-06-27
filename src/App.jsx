@@ -164,7 +164,9 @@ export default function App() {
             }}>
               <img
                 src="/emma-headshot.jpg"
-                alt="Dr. Emma DiPonio headshot"
+                alt="Dr. Emma DiPonio, MD headshot"
+                loading="lazy"
+                decoding="async"
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
             </div>
