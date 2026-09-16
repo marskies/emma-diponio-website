@@ -6,7 +6,10 @@ export default function sitemap() {
   const staticRoutes = [
     { url: `${SITE.url}/`, changeFrequency: 'monthly', priority: 1.0 },
     { url: `${SITE.url}/for-clinics`, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${SITE.url}/watch`, changeFrequency: 'weekly', priority: 0.8 },
+    // Only list /watch once something is on it.
+    ...(getAllArticles().length
+      ? [{ url: `${SITE.url}/watch`, changeFrequency: 'weekly', priority: 0.8 }]
+      : []),
     ...(REVIEW_OFFER.live
       ? [{ url: `${SITE.url}/start`, changeFrequency: 'monthly', priority: 0.9 }]
       : []),

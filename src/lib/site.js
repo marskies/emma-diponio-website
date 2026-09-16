@@ -17,6 +17,11 @@ export const SITE = {
 // former-employer address. Every inquiry since she left has gone there.
 export const CONTACT = {
   email: 'NEEDS_EMMA:new-contact-email',
+  // Where contact CTAs point until `email` is set. LinkedIn is a channel Emma
+  // controls and monitors today, so a visitor who clicks always lands
+  // somewhere real. Never fall back to an on-page anchor: that renders a
+  // primary CTA that does nothing.
+  fallbackUrl: 'https://www.linkedin.com/in/dr-emma-diponio-md-24b5778a/',
   linkedin: 'https://www.linkedin.com/in/dr-emma-diponio-md-24b5778a/',
   instagram: 'https://www.instagram.com/emmadiponio.md/',
   youtube: 'NEEDS_EMMA:youtube-channel-url',
@@ -123,6 +128,23 @@ export const DISCLAIMERS = {
     'licensed physician. It does not replace care from your treating physician ' +
     'and it is not emergency care.',
 };
+
+// Resolve the contact CTA once, here, rather than in each page.
+// Returns { href, label, external } so callers cannot drift.
+export function contactCta({ context = 'general' } = {}) {
+  if (!needsEmma(CONTACT.email)) {
+    return {
+      href: `mailto:${CONTACT.email}`,
+      label: context === 'clinic' ? 'Start a conversation' : 'Email Dr. DiPonio',
+      external: false,
+    };
+  }
+  return {
+    href: CONTACT.fallbackUrl,
+    label: context === 'clinic' ? 'Start a conversation on LinkedIn' : 'Message on LinkedIn',
+    external: true,
+  };
+}
 
 export const NEEDS_EMMA_PREFIX = 'NEEDS_EMMA:';
 export const needsEmma = (v) =>

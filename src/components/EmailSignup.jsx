@@ -19,14 +19,14 @@ export default function EmailSignup({ source = 'unknown', onDark = false, compac
   const muted = onDark ? 'rgba(255,255,255,0.55)' : P.mid;
   const heading = onDark ? P.white : P.navy;
 
+  // Not configured: render NOTHING to visitors. An unconfigured component must
+  // never leak build instructions onto a public page. The warning goes to the
+  // dev console and to `npm run build`, where it belongs.
   if (!configured) {
-    return (
-      <div style={{ border: `1px dashed ${onDark ? 'rgba(255,255,255,0.25)' : 'rgba(27,42,74,0.2)'}`, borderRadius: '4px', padding: '20px' }}>
-        <p style={{ fontFamily: F.b, fontSize: '12px', color: muted, margin: 0 }}>
-          Newsletter signup not yet connected. Add the Beehiiv embed URL to <code>src/lib/site.js</code>.
-        </p>
-      </div>
-    );
+    if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+      console.warn('[EmailSignup] EMAIL.embedUrl is unset in src/lib/site.js - signup hidden.');
+    }
+    return null;
   }
 
   return (

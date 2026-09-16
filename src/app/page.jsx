@@ -5,7 +5,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { JsonLd, physicianSchema } from '@/lib/schema';
 import { P, F } from '@/lib/brand';
-import { CONTACT, REVIEW_OFFER, needsEmma } from '@/lib/site';
+import { CONTACT, REVIEW_OFFER, contactCta } from '@/lib/site';
 import { trackReviewClick } from '@/lib/track';
 import {
   FadeIn, useIsMobile, Label, Btn, Pill, Tag, Award, SkillPill, GoldRule,
@@ -27,7 +27,7 @@ export default function Home() {
   const sectionPad = mobile ? '56px 20px' : 'clamp(64px, 10vw, 120px) 32px';
   const sectionPadSm = mobile ? '48px 20px' : 'clamp(56px, 8vw, 100px) 32px';
 
-  const mailHref = needsEmma(CONTACT.email) ? '/#contact' : `mailto:${CONTACT.email}`;
+  const cta = contactCta();
 
   return (
     <div style={{ fontFamily: F.b, color: P.dark, background: P.cream, overflowX: 'hidden' }}>
@@ -349,10 +349,15 @@ export default function Home() {
             Whether you&apos;re a patient, physician, or colleague in the longevity space — I&apos;d love to hear from you.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
-            <Btn primary mobile={mobile} href={mailHref}>
-              {needsEmma(CONTACT.email) ? 'Send an Inquiry' : 'Email Dr. DiPonio'}
+            <Btn
+              primary
+              mobile={mobile}
+              href={cta.href}
+              {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {cta.label}
             </Btn>
-            <Btn mobile={mobile} href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</Btn>
+            <Btn mobile={mobile} href={CONTACT.instagram} target="_blank" rel="noopener noreferrer">Instagram</Btn>
           </div>
         </FadeIn>
       </section>

@@ -3,7 +3,7 @@ import EmailSignup from '@/components/EmailSignup';
 import TrackedLink from '@/components/TrackedLink';
 import { ServiceScopeNote } from '@/components/Disclaimer';
 import { P, F } from '@/lib/brand';
-import { REVIEW_OFFER, INTAKE, ANALYTICS, CONTACT, needsEmma } from '@/lib/site';
+import { REVIEW_OFFER, INTAKE, ANALYTICS, CONTACT, EMAIL, needsEmma } from '@/lib/site';
 
 export const metadata = {
   title: REVIEW_OFFER.live ? 'Second Opinion Imaging Review' : 'Second Opinion Imaging Review — Opening Soon',
@@ -43,8 +43,12 @@ function ComingSoon() {
       />
       <section className="section-sm" style={{ background: P.cream }}>
         <div className="wrap" style={{ maxWidth: '780px' }}>
-          <p style={label}>In the meantime</p>
-          <EmailSignup source="start_comingsoon" />
+          {!needsEmma(EMAIL.embedUrl) && (
+            <>
+              <p style={label}>In the meantime</p>
+              <EmailSignup source="start_comingsoon" />
+            </>
+          )}
           <div style={{ marginTop: '40px', paddingTop: '32px', borderTop: '1px solid rgba(27,42,74,0.07)' }}>
             <p className="body" style={{ color: P.mid, marginBottom: '16px' }}>
               If you are a clinic rather than a patient, the consulting path is open now.
