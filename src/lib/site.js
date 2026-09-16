@@ -16,7 +16,9 @@ export const SITE = {
 // URGENT: the live site currently mails emmad@lifespan-edge.com, which is a
 // former-employer address. Every inquiry since she left has gone there.
 export const CONTACT = {
-  email: 'NEEDS_EMMA:new-contact-email',
+  // Emma's own address, chosen by her Sep 2026. Replaced the former-employer
+  // mailbox (emmad@lifespan-edge.com) that the pre-migration site used.
+  email: 'longevityimager@gmail.com',
   // Where contact CTAs point until `email` is set. LinkedIn is a channel Emma
   // controls and monitors today, so a visitor who clicks always lands
   // somewhere real. Never fall back to an on-page anchor: that renders a
@@ -131,10 +133,16 @@ export const DISCLAIMERS = {
 
 // Resolve the contact CTA once, here, rather than in each page.
 // Returns { href, label, external } so callers cannot drift.
+const MAIL_SUBJECTS = {
+  general: 'Website inquiry',
+  clinic: 'Clinic inquiry - imaging consulting',
+};
+
 export function contactCta({ context = 'general' } = {}) {
   if (!needsEmma(CONTACT.email)) {
+    const subject = MAIL_SUBJECTS[context] || MAIL_SUBJECTS.general;
     return {
-      href: `mailto:${CONTACT.email}`,
+      href: `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}`,
       label: context === 'clinic' ? 'Start a conversation' : 'Email Dr. DiPonio',
       external: false,
     };
