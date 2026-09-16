@@ -1,7 +1,7 @@
 import PageShell, { PageHero } from '@/components/PageShell';
 import TrackedLink from '@/components/TrackedLink';
 import { P, F } from '@/lib/brand';
-import { ANALYTICS, CONTACT, INTAKE, needsEmma } from '@/lib/site';
+import { ANALYTICS, INTAKE, contactCta, needsEmma } from '@/lib/site';
 
 export const metadata = {
   title: 'Imaging Consulting for Clinics',
@@ -78,9 +78,10 @@ const linkCta = {
 };
 
 export default function ForClinics() {
-  const inquiryHref = needsEmma(INTAKE.inquiryFormUrl)
-    ? (needsEmma(CONTACT.email) ? '/#contact' : `mailto:${CONTACT.email}`)
-    : INTAKE.inquiryFormUrl;
+  // Until the inquiry form exists, this must still land somewhere real.
+  const cta = needsEmma(INTAKE.inquiryFormUrl)
+    ? contactCta({ context: 'clinic' })
+    : { href: INTAKE.inquiryFormUrl, label: 'Start a conversation', external: false };
 
   return (
     <PageShell>
@@ -90,12 +91,13 @@ export default function ForClinics() {
         lede="Most longevity practices buy scans. Far fewer have a radiologist shaping what gets ordered, how it is acquired, and what the report is meant to answer. That gap is where imaging budgets go to waste."
       >
         <TrackedLink
-          href={inquiryHref}
+          href={cta.href}
+          external={cta.external}
           event={ANALYTICS.events.clinicInquiry}
           props={{ source: 'clinics_hero' }}
           style={linkCta}
         >
-          Start a conversation
+          {cta.label}
         </TrackedLink>
       </PageHero>
 
@@ -174,12 +176,13 @@ export default function ForClinics() {
             Send a short note on your current imaging setup and what you want it to answer. If there is a fit, we will book a call.
           </p>
           <TrackedLink
-            href={inquiryHref}
+            href={cta.href}
+            external={cta.external}
             event={ANALYTICS.events.clinicInquiry}
             props={{ source: 'clinics_footer' }}
             style={linkCta}
           >
-            Start a conversation
+            {cta.label}
           </TrackedLink>
           <p className="small" style={{ color: 'rgba(255,255,255,0.3)', marginTop: '20px' }}>
             This page is for clinics and practices. Patients seeking a second opinion on their own imaging should use the patient path.
