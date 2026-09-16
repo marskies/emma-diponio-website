@@ -418,7 +418,7 @@ export default function App() {
           ))}
         </div>
         <div style={{ width: "32px", height: "1px", background: "rgba(196,162,101,0.15)", margin: "0 auto 10px" }} />
-        <p style={{ fontFamily: F.b, fontSize: "10px", color: "rgba(255,255,255,0.12)", letterSpacing: "1px" }}>© 2026 Dr. Emma DiPonio, MD</p>
+        <p style={{ fontFamily: F.b, fontSize: "10px", color: "rgba(255,255,255,0.12)", letterSpacing: "1px" }}>© 2026 Dr. Emma DiPonio, MD</p><p style={{ fontFamily: F.b, fontSize: "10px", color: "rgba(255,255,255,0.12)", letterSpacing: "1px", margin: "6px 0 0" }}>Website created by <a href="https://skymar.studio" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.2)", textDecoration: "none", borderBottom: "1px solid rgba(196,162,101,0.2)" }}>Sky &amp; Mar Studio LLC</a></p>
       </footer>
     </div>
   );
