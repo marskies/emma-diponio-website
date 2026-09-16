@@ -1,0 +1,72 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { margin: 0; padding: 0; min-height: 100vh; background: #FAF6F1; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font-family: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Server-rendered layout primitives -----------------------------------
+   New pages use real CSS rather than JS width checks, so they render fully
+   on the server. That is what makes the article layer indexable. */
+
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 641px) { .wrap { padding: 0 32px; } }
+
+.section { padding: 56px 0; }
+@media (min-width: 641px) { .section { padding: clamp(64px, 10vw, 120px) 0; } }
+
+.section-sm { padding: 48px 0; }
+@media (min-width: 641px) { .section-sm { padding: clamp(56px, 8vw, 100px) 0; } }
+
+.grid-auto {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 641px) {
+  .grid-auto { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+
+.split { display: flex; flex-direction: column; gap: 32px; }
+@media (min-width: 761px) {
+  .split { flex-direction: row; gap: 56px; align-items: center; }
+  .split > * { flex: 1 1 0; min-width: 0; }
+}
+
+.h1 { font-size: clamp(30px, 6vw, 52px); line-height: 1.15; font-weight: 400; }
+.h2 { font-size: clamp(24px, 4vw, 36px); line-height: 1.25; font-weight: 400; }
+.h3 { font-size: clamp(18px, 2.4vw, 21px); line-height: 1.35; font-weight: 500; }
+.body { font-size: 15px; line-height: 1.8; }
+.small { font-size: 13px; line-height: 1.7; }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta-row > * { width: 100%; }
+@media (min-width: 481px) { .cta-row > * { width: auto; } }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #C4A265;
+  outline-offset: 3px;
+}
+
+/* Single reading measure. Hero and body share it so the left edge is
+   continuous down the page instead of stepping in and out. */
+.measure { max-width: 780px; margin-left: 0; margin-right: auto; }
+.measure-center { max-width: 780px; margin: 0 auto; }
+
+/* Below 460px the nav wraps to two rows. "About" is a homepage anchor rather
+   than a destination, so it is the one that drops. */
+@media (max-width: 459px) { .nav-secondary { display: none; } }
